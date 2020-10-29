@@ -30,7 +30,7 @@ loader = DataLoader(train_dataset, batch_size=640, shuffle=True)
 model = CCRGNN(1,9)
 model.cuda()
 
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=0.0001)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=0.00001)
 
 epochs = 2000
 score = []

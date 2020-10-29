@@ -15,9 +15,9 @@ class CCRGNN(nn.Module):
         self.gcn3 = GATConv(64, out_channel)
         self.gcn4 = GATConv(32, out_channel)
 
-        self.lin1 = nn.Linear(3280,1024)
-        self.lin2 = nn.Linear(1024,128)
-        self.lin3 = nn.Linear(128,9)
+        self.lin1 = nn.Linear(3280,5000)
+        self.lin2 = nn.Linear(5000,1024)
+        self.lin3 = nn.Linear(1024,9)
         # self.reset_parameters()
     def reset_parameters(self):
         glorot(self.labelemb)
@@ -40,22 +40,7 @@ class CCRGNN(nn.Module):
         res3 = x.reshape(batch_size,-1)
         out3 = global_max_pool(x,batch.batch.cuda())
 
-        # x = F.relu(self.gcn4(x, edge_index))
-        # res4 = x.reshape(batch_size,-1)
-        # out4 = global_max_pool(x,batch.batch.cuda())
 
-
-        # print(res.shape)
-        # print(res1.shape)
-        # print(res2.shape)
-        # print(res3.shape)
-        # # print(res4.shape)
-
-        # print(out.shape)
-        # print(out1.shape)
-        # print(out2.shape)
-        # print(out3.shape)
-        # # print(out4.shape)
         finalout = torch.cat([res,res1,res2,res3,out,out1,out2,out3],1)
         # print(finalout.shape)
         finalout = F.relu(self.lin1(finalout))
